@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom'
 
 const ShipTableRows = props => {
-  console.log(props)
+  // console.log(props)
 
   const statusClassname = status => {
     switch (status) {

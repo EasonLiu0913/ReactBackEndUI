@@ -6,9 +6,6 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom'
-import $ from 'jquery'
-import 'jquery-ui/ui/widgets/datepicker'
-import 'jquery-ui/themes/base/datepicker.css'
 
 // components
 import ShipTableRows from './ShipTableRows'
@@ -19,12 +16,16 @@ import '../../../css/plugins/footable/footable.core.css'
 const ShipTable = props => {
   let isAnyData = false
   console.log(props.data)
-
+  console.log(props.orderDateOn)
   function checkAllFilterBalnk(props) {
     if (
       props.orderID === '' &&
       (props.orderStatus === '' || props.orderStatus === '全部狀態') &&
-      props.orderCustomer === ''
+      props.orderCustomer === '' &&
+      (props.orderDateOn === '' || props.orderDateOn === false) &&
+      (props.orderShipMethods === '' ||
+        props.orderShipMethods === '全部訂單') &&
+      props.orderAmount === ''
     ) {
       console.log('checkAllFilterBalnk true')
       return true
@@ -39,31 +40,6 @@ const ShipTable = props => {
       return true
     }
   }
-
-  useEffect(() => {
-    $(document).ready(function() {
-      $('#date_added').datepicker({
-        todayBtn: 'linked',
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-      })
-
-      $('#date_modified').datepicker({
-        todayBtn: 'linked',
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-      })
-    })
-  }, [])
-
-  useEffect(() => {
-    console.log('new props', props)
-  }, [props])
-
   return (
     <>
       <div className="row">
@@ -136,12 +112,8 @@ const ShipTable = props => {
                           />
                         )
                       } else if (props.orderID !== '') {
-                        console.log('props.orderID !== ""')
-                        console.log(checkOrderId(props.data[ind].orderId))
                         if (checkOrderId(props.data[ind].orderId)) {
                           isAnyData = true
-                          console.log('yo', props.orderID)
-                          console.log('yo', props.data[ind].orderId)
                           return (
                             <ShipTableRows
                               key={ind}
@@ -156,8 +128,6 @@ const ShipTable = props => {
                       ) {
                         if (props.data[ind].outStatus == props.orderStatus) {
                           isAnyData = true
-                          console.log('yo', props.orderStatus)
-                          console.log('yo', props.data[ind].orderStatus)
                           return (
                             <ShipTableRows
                               key={ind}
@@ -180,23 +150,197 @@ const ShipTable = props => {
                             />
                           )
                         }
-                      } else {
-                        console.log('nothing', props.orderID !== '')
-                        return (
-                          <tr>
-                            <td className="footable-visible footable-first-column text-center">
-                              沒有任何資料符合條件
-                            </td>
-                          </tr>
-                        )
+                      } else if (props.orderDate !== '') {
+                        if (props.data[ind].date === props.orderDate) {
+                          isAnyData = true
+                          return (
+                            <ShipTableRows
+                              key={ind}
+                              index={ind}
+                              data={props.data[ind]}
+                            />
+                          )
+                        }
+                      } else if (props.orderShipMethods !== '') {
+                        if (
+                          props.data[ind].shippingWay === props.orderShipMethods
+                        ) {
+                          isAnyData = true
+                          return (
+                            <ShipTableRows
+                              key={ind}
+                              index={ind}
+                              data={props.data[ind]}
+                            />
+                          )
+                        }
+                      } else if (props.orderAmount !== '') {
+                        {
+                          /* console.log('props.orderAmount', props.orderAmount)
+                        console.log(!isNaN(props.orderAmount.substring(0, 1))) */
+                        }
+                        if (
+                          props.orderAmount.substring(0, 1) === '>' ||
+                          props.orderAmount.substring(0, 1) === '<' ||
+                          props.orderAmount.substring(0, 1) === '='
+                        ) {
+                          if (props.orderAmount.length >= 2) {
+                            console.log(
+                              '第二字=檢驗',
+                              props.orderAmount.substring(2, 1) === '='
+                            )
+                            if (props.orderAmount.substring(0, 1) === '>') {
+                              if (props.orderAmount.substring(2, 1) === '=') {
+                                {
+                                  /* 大於等於 */
+                                }
+                                if (
+                                  parseInt(props.data[ind].total) >=
+                                  parseInt(
+                                    props.orderAmount.substring(
+                                      2,
+                                      props.orderAmount.length
+                                    )
+                                  )
+                                ) {
+                                  isAnyData = true
+                                  return (
+                                    <ShipTableRows
+                                      key={ind}
+                                      index={ind}
+                                      data={props.data[ind]}
+                                    />
+                                  )
+                                }
+                              } else {
+                                {
+                                  /* only 大於 */
+                                }
+                                if (
+                                  parseInt(props.data[ind].total) >
+                                  parseInt(
+                                    props.orderAmount.substring(
+                                      1,
+                                      props.orderAmount.length
+                                    )
+                                  )
+                                ) {
+                                  isAnyData = true
+                                  return (
+                                    <ShipTableRows
+                                      key={ind}
+                                      index={ind}
+                                      data={props.data[ind]}
+                                    />
+                                  )
+                                }
+                              }
+                            } else if (
+                              props.orderAmount.substring(0, 1) === '<'
+                            ) {
+                              console.log('開頭小於')
+                              if (props.orderAmount.substring(2, 1) === '=') {
+                                {
+                                  /* 小於等於 */
+                                }
+                                if (
+                                  parseInt(props.data[ind].total) <=
+                                  parseInt(
+                                    props.orderAmount.substring(
+                                      2,
+                                      props.orderAmount.length
+                                    )
+                                  )
+                                ) {
+                                  isAnyData = true
+                                  return (
+                                    <ShipTableRows
+                                      key={ind}
+                                      index={ind}
+                                      data={props.data[ind]}
+                                    />
+                                  )
+                                }
+                              } else {
+                                {
+                                  /* only 小於 */
+                                }
+                                if (
+                                  parseInt(props.data[ind].total) <
+                                  parseInt(
+                                    props.orderAmount.substring(
+                                      1,
+                                      props.orderAmount.length
+                                    )
+                                  )
+                                ) {
+                                  isAnyData = true
+                                  return (
+                                    <ShipTableRows
+                                      key={ind}
+                                      index={ind}
+                                      data={props.data[ind]}
+                                    />
+                                  )
+                                }
+                              }
+                            } else if (
+                              props.orderAmount.substring(0, 1) === '='
+                            ) {
+                              console.log('開頭等於')
+                              if (
+                                parseInt(props.data[ind].total) ===
+                                parseInt(
+                                  props.orderAmount.substring(
+                                    1,
+                                    props.orderAmount.length
+                                  )
+                                )
+                              ) {
+                                isAnyData = true
+                                return (
+                                  <ShipTableRows
+                                    key={ind}
+                                    index={ind}
+                                    data={props.data[ind]}
+                                  />
+                                )
+                              }
+                            }
+                          }
+                        } else if (!isNaN(props.orderAmount.substring(0, 1))) {
+                          {
+                            /* console.log('開頭為數字，預設為大於') */
+                          }
+
+                          if (
+                            parseInt(props.data[ind].total) >
+                            parseInt(
+                              props.orderAmount.substring(
+                                0,
+                                props.orderAmount.length
+                              )
+                            )
+                          ) {
+                            isAnyData = true
+                            return (
+                              <ShipTableRows
+                                key={ind}
+                                index={ind}
+                                data={props.data[ind]}
+                              />
+                            )
+                          }
+                        }
                       }
+
                       if (
                         ind === props.data.length - 1 &&
                         isAnyData === false
                       ) {
                         console.log('nothing')
                         return (
-                          <tr>
+                          <tr key={0}>
                             <td className="footable-visible footable-first-column text-center">
                               沒有任何資料符合條件
                             </td>
@@ -205,7 +349,7 @@ const ShipTable = props => {
                       }
                     })
                   ) : (
-                    <tr>
+                    <tr key={0}>
                       <td>沒有任何資料</td>
                     </tr>
                   )}
