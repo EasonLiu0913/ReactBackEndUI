@@ -1,63 +1,72 @@
-const express = require("express"); //express
-const session = require("express-session"); //session
-const cors = require("cors"); //CORS
-const db = require("./db_connect");
-const moment = require("moment-timezone");
-const date = "YYYY-MM-DD";
-const time = "HH:mm:ss";
+const express = require('express') //express
+const session = require('express-session') //session
+const cors = require('cors') //CORS
+const db = require('./db_connect')
+const moment = require('moment-timezone')
+const date = 'YYYY-MM-DD'
+const time = 'HH:mm:ss'
+
+const bodyParser = require('body-parser')
 
 //建立webserver物件
-const app = express();
+const app = express()
+
+app.use(bodyParser.json())
 
 app.use(
   session({
     saveUninitialized: false,
     resave: false,
-    secret: "whatever123456",
+    secret: 'whatever123456',
     cookie: {
-      masAge: 1200000
-    }
+      masAge: 1200000,
+    },
   })
-);
+)
 
 //CORS
 //記得前端設定credentials = 'include'
-const whiteList = ["http://localhost:3000", undefined];
+const whiteList = ['http://localhost:3000', undefined]
 const corsOptions = {
   credentials: true,
   origin: function(origin, callback) {
     if (whiteList.indexOf(origin) !== -1) {
-      callback(null, true);
+      callback(null, true)
     } else {
-      callback(null, false);
+      callback(null, false)
     }
-  }
-};
-app.use(cors(corsOptions));
+  },
+}
+app.use(cors(corsOptions))
 
 // get data from db
-app.get("/db/:table?", (req, res) => {
-  let sql = `SELECT * FROM ${req.params.table} `;
+app.get('/db/:table?', (req, res) => {
+  let sql = `SELECT * FROM ${req.params.table} `
   db.queryAsync(sql).then(r => {
     r.forEach(e => {
-      e.date = moment(e.created_at).format(date);
-      e.time = moment(e.created_at).format(time);
-    });
+      e.date = moment(e.created_at).format(date)
+      e.time = moment(e.created_at).format(time)
+    })
 
-    return res.json(r);
-  });
-});
+    return res.json(r)
+  })
+})
 
 // index page
-app.get("/", (req, res) => {
-  res.send("hello");
-});
+app.get('/', (req, res) => {
+  res.send('hello')
+})
+
+app.post('/iii', (req, res) => {
+  console.log('req.body', req.body)
+  res.send('hello')
+})
 
 //404
 app.use((req, res) => {
-  res.send("404 not found");
-});
+  res.send('404 not found')
+})
 
 app.listen(5500, () => {
-  console.log("Express server start");
-});
+  console.log('Express server start')
+})

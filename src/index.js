@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
 import { rootReducer } from './reducers/index'
 
 // react-hot-loader
-import { AppContainer } from 'react-hot-loader'
+// import { AppContainer } from 'react-hot-loader'
 import LocalServiceWorkerRegister from './sw-register'
 
 // ---- 使用 Middleware時 創建store ----
@@ -23,11 +23,11 @@ const store = createStore(
 )
 const render = () => {
   ReactDOM.render(
-    <AppContainer>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </AppContainer>,
+    // <AppContainer>
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    //  </AppContainer>,
     document.getElementById('root')
   )
 }
@@ -37,13 +37,13 @@ const render = () => {
 serviceWorker.unregister()
 
 // Do this once
-LocalServiceWorkerRegister()
+// LocalServiceWorkerRegister()
 
 render()
 
 // Webpack Hot Module Replacement API
-if (module.hot) {
-  module.hot.accept('./App', () => {
-    render()
-  })
-}
+// if (module.hot) {
+//   module.hot.accept('./App', () => {
+//     render()
+//   })
+// }

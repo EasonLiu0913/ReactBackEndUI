@@ -14,8 +14,8 @@ import { bindActionCreators } from 'redux'
 import { getOrderlistData } from './component/ship/actions'
 
 //header
-import Header from './component/Header'
-import Banner from './component/Banner'
+import Header from './component/common/Header'
+import Banner from './component/common/Banner'
 import ShipFilter from './component/ship/ShipFilter'
 import ShipTable from './component/ship/ShipTable'
 

@@ -26,20 +26,24 @@ function App() {
         <LeftNav />
 
         <Switch>
-          <Route path="/Product">
-            <Product />
-          </Route>
           <Route path="/Ship">
             <Ship />
           </Route>
           <Route path="/Message">
             <Message />
           </Route>
+          <Route path="/Product">
+            <Product />
+          </Route>
           <Route path="/Promote">
             <Promote />
           </Route>
-          <Route exact path="/Chart">
+          <Route path="/Chart">
             <Chart />
+          </Route>
+
+          <Route exact path="/">
+            <Ship />
           </Route>
         </Switch>
       </Router>

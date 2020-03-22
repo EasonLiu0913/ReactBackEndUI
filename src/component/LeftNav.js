@@ -75,16 +75,6 @@ function LeftNav() {
             <li className="nav-item">
               <NavLink
                 className="nav-link"
-                to="/Product"
-                activeStyle={selectStyle}
-              >
-                <i className="fa fa-th-large"></i>{' '}
-                <span className="nav-label">商品上架</span>{' '}
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link"
                 to="/Ship"
                 activeStyle={selectStyle}
               >
@@ -103,6 +93,17 @@ function LeftNav() {
                 <span className="label label-warning float-right">16/24</span>
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                to="/Product"
+                activeStyle={selectStyle}
+              >
+                <i className="fa fa-th-large"></i>{' '}
+                <span className="nav-label">商品上架</span>{' '}
+              </NavLink>
+            </li>
+
             <li className="nav-item">
               <NavLink
                 className="nav-link"

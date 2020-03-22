@@ -2,8 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 //header
-import Header from './component/Header'
-import Banner from './component/Banner'
+import Header from './component/common/Header'
+import Banner from './component/common/Banner'
 
 const pageName = '商品上架'
 
