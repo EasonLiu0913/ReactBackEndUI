@@ -90,7 +90,7 @@ function LeftNav() {
               >
                 <i className="fa fa-envelope"></i>{' '}
                 <span className="nav-label">留言 </span>
-                <span className="label label-warning float-right">16/24</span>
+                {/* <span className="label label-warning float-right">16/24</span> */}
               </NavLink>
             </li>
             <li className="nav-item">
@@ -122,7 +122,7 @@ function LeftNav() {
               >
                 <i className="fa fa-bar-chart-o"></i>{' '}
                 <span className="nav-label">報表</span>
-                <span className="fa arrow"></span>
+                {/* <span className="fa arrow"></span> */}
               </NavLink>
               <ul className="nav nav-second-level collapse">
                 <li>
