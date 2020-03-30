@@ -21,7 +21,8 @@ function LeftNav() {
   const [couponClick,setCouponClick] = useState(false)
   const [adClick,setAdClick] = useState(false)
 
-  const promoteOpen = classnames('nav' ,'sty-nav', 'nav-second-level', 'collapse' , {in:promoteClick })
+
+  const promoteOpen = classnames('nav' ,'sty-nav', 'nav-second-level', 'collapse' , {in:promoteClick || couponClick || adClick})
   const couponActive = classnames({ active : couponClick })
   const adActive = classnames({ active : adClick })
 
@@ -56,9 +57,9 @@ function LeftNav() {
                   className="dropdown-toggle"
                   href="index.html"
                 >
-                  <span className="block m-t-xs font-bold">David Williams</span>
-                  <span className="text-muted text-xs block">
-                    Art Director <b className="caret"></b>
+                  <span className="block m-t-xs font-bold" style={{fontSize:'20px'}}>David Wang</span>
+                  <span className="text-muted text-xs block"  style={{fontSize:'16px'}}>
+                    GARMIN 銷售總監 <b className="caret"></b>
                   </span>
                 </a>
                 <ul className="dropdown-menu animated fadeInRight m-t-xs">
@@ -122,7 +123,7 @@ function LeftNav() {
             <li className="nav-item">
               <NavLink
                 className="nav-link"
-                to="/Promote"
+                to="/Promote/couponList"
                 activeStyle={selectStyle}
                 onClick={()=>setPromoteClick(!promoteClick)}
               >
@@ -133,14 +134,18 @@ function LeftNav() {
                   <NavLink
                   className="nav-link"
                   to="/Promote/couponList"
-                  onClick={()=>setCouponClick(!couponClick)}
+                  onClick={()=>{
+                    setCouponClick(!couponClick)
+                    setAdClick(false)}}
                   >
                     <li className={couponActive}>優惠券</li>
                   </NavLink>
                   <NavLink
                   className="nav-link"
                   to="/Promote/adList"
-                  onClick={()=>setAdClick(!adClick)}
+                  onClick={()=>{
+                    setAdClick(!adClick)
+                    setCouponClick(false)}}
                   >
                     <li className={adActive}>廣告</li>
                   </NavLink>

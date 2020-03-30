@@ -17,16 +17,15 @@ const Banner = props => {
         justifyContent: 'space-between',
         alignItems: 'left',
         background: '#fff',
-        height: '100px',
-        padding: '16px 0px',
+        padding: '25px 0px',
       }}
     >
       <div style={{ marginLeft: '10px' }}>
-        <span style={{ fontSize: '24px' }}>廠商管理後台</span>
+        <span style={{ fontSize: '30px' }}>廠商管理後台</span>
       </div>
-      <div style={{ marginLeft: '10px' }}>
+      <div style={{ margin: '15px 0px 0px 20px' }}>
         {' '}
-        <span> Home / {props.pageName} </span>
+        <span style={{fontSize: '22px'}}> Home / {props.pageName} </span>
       </div>
     </div>
   )

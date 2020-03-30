@@ -5,6 +5,7 @@
   align-items: center;
   p {
     margin: 0;
+    font-size: 23px;
   }
 }
 
@@ -14,7 +15,9 @@
   border: 1px solid transparent;
   font-weight: $font-bold;
   transition: 0.3s;
-  margin-left: 100px;
+  margin-left: 80px;
+  font-size: 20px;
+
   &:hover {
     border: 1px solid $orange;
     color: $orange;
@@ -103,7 +106,7 @@
 }
 
 .sty-detail {
-  font-size: 18px;
+  font-size: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
