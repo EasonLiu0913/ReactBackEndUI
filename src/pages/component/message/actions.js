@@ -4,17 +4,14 @@ export const showCommentProductList = val => {
 
 export const getCommentProductlistData = item => {
   return async dispatch => {
-    const request = new Request(
-      'http://localhost:5500/db/bkCommentProductList',
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: new Headers({
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      }
-    )
+    const request = new Request('http://localhost:5500/backend/getGarmin', {
+      method: 'GET',
+      credentials: 'include',
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
 
     const res = await fetch(request)
     const data = await res.json()
@@ -28,14 +25,17 @@ export const showUserCommentData = val => {
 }
 export const getUserCommentData = item => {
   return async dispatch => {
-    const request = new Request('http://localhost:5500/db/user_comment', {
-      method: 'GET',
-      credentials: 'include',
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
+    const request = new Request(
+      'http://localhost:5500/backend/db/user_comment',
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      }
+    )
 
     const res = await fetch(request)
     const data = await res.json()
@@ -49,14 +49,17 @@ export const showReplyCommentData = val => {
 }
 export const getReplyCommentData = item => {
   return async dispatch => {
-    const request = new Request('http://localhost:5500/db/reply_comment', {
-      method: 'GET',
-      credentials: 'include',
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
+    const request = new Request(
+      'http://localhost:5500/backend/db/user_comment_reply',
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      }
+    )
 
     const res = await fetch(request)
     const data = await res.json()
