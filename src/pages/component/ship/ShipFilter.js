@@ -91,6 +91,7 @@ const ShipFilter = props => {
                   name="customer"
                   placeholder="Customer"
                   className="form-control"
+                  onChange={e => props.sendOrderCustomer(e.target.value)}
                 />
               </div>
             </div>

@@ -23,7 +23,6 @@ const pageName = '出貨'
 
 const bgStyle = {
   flex: 1,
-  height: '300vh',
   padding: '0',
 }
 
@@ -35,6 +34,7 @@ const Ship = props => {
   const [orderDateOn, setOrderDateOn] = useState(false)
   const [orderShipMethods, setOrderShipMethods] = useState('')
   const [orderAmount, setOrderAmount] = useState('')
+  const [nowFilter, setNowFilter] = useState('')
 
   useEffect(() => {
     props.getOrderlistData()
@@ -49,10 +49,12 @@ const Ship = props => {
           sendOrderID={text => {
             //傳入text，然後回設定父母元件的state值
             setOrderID(text)
+            setNowFilter('orderID')
           }}
           sendOrderStatus={text => {
             //傳入text，然後回設定父母元件的state值
             setOrderStatus(text)
+            setNowFilter('orderStatus')
           }}
           sendOrderCustomer={text => {
             //傳入text，然後回設定父母元件的state值

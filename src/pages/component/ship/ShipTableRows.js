@@ -49,13 +49,6 @@ const ShipTableRows = props => {
             {props.data.outStatus}
           </span>
         </td>
-        <td className="text-center footable-visible footable-last-column">
-          <div className="btn-group">
-            <button className="btn-white btn btn-xs">View</button>
-            <button className="btn-white btn btn-xs">Edit</button>
-            <button className="btn-white btn btn-xs">Delete</button>
-          </div>
-        </td>
       </tr>
     </>
   )

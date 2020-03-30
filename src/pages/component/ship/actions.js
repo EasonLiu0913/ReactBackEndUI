@@ -4,7 +4,7 @@ export const showOrderlist = val => {
 
 export const getOrderlistData = item => {
   return async dispatch => {
-    const request = new Request('http://localhost:5500/db/orderlist', {
+    const request = new Request('http://localhost:5500/backend/db/orderlist', {
       method: 'GET',
       credentials: 'include',
       headers: new Headers({

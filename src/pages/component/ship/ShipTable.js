@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Route,
@@ -15,8 +15,15 @@ import '../../../css/plugins/footable/footable.core.css'
 
 const ShipTable = props => {
   let isAnyData = false
-  console.log(props.data)
-  console.log(props.orderDateOn)
+  let totalNum = 0
+  let nowIndex = 0
+  // console.log(props.data)
+  // console.log(props.orderDateOn)
+
+  const [nowPage, setNowPage] = useState(1)
+  const [nowFilter, setNowFilter] = useState('')
+  console.log('nowFilter', nowFilter)
+  console.log('props.orderCustomer111', props.orderCustomer)
   function checkAllFilterBalnk(props) {
     if (
       props.orderID === '' &&
@@ -36,9 +43,21 @@ const ShipTable = props => {
 
   function checkOrderId(checkId) {
     if (props.orderID === '') return false
-    if (checkId.toString() === props.orderID.toString()) {
+    if (checkId.toString().indexOf(props.orderID.toString()) != -1) {
       return true
     }
+  }
+
+  function handleChangePage(e) {
+    setNowPage(parseInt(e.target.getAttribute('data-page')))
+    console.log('hi', e.target.getAttribute('data-page'))
+    if (e.target.getAttribute('data-page') === 'last') {
+      setNowPage(parseInt(Math.ceil(totalNum / 10)))
+    }
+  }
+
+  function resetNowPage() {
+    setNowPage(1)
   }
   return (
     <>
@@ -54,49 +73,42 @@ const ShipTable = props => {
                   <tr>
                     <th className="footable-visible footable-first-column footable-sortable text-center">
                       Order ID
-                      <span className="footable-sort-indicator"></span>
                     </th>
                     <th
                       data-hide="phone"
                       className="footable-visible footable-sortable text-center"
                     >
-                      Customer<span className="footable-sort-indicator"></span>
+                      Customer
                     </th>
                     <th
                       data-hide="phone"
                       className="footable-visible footable-sortable text-center"
                     >
-                      Amount<span className="footable-sort-indicator"></span>
+                      Amount
                     </th>
                     <th
                       data-hide="phone"
                       className="footable-visible footable-sortable text-center"
                     >
                       Date
-                      <span className="footable-sort-indicator"></span>
                     </th>
                     <th
                       data-hide="phone"
                       className="footable-visible footable-sortable text-center"
                     >
                       Time
-                      <span className="footable-sort-indicator"></span>
                     </th>
                     <th
                       data-hide="phone,tablet"
                       className="footable-visible footable-sortable text-center"
                     >
                       Shipping methods
-                      <span className="footable-sort-indicator"></span>
                     </th>
                     <th
                       data-hide="phone"
                       className="footable-visible footable-sortable text-center"
                     >
-                      Status<span className="footable-sort-indicator"></span>
-                    </th>
-                    <th className="footable-visible footable-last-column footable-sortable text-center">
-                      Action<span className="footable-sort-indicator"></span>
+                      Status
                     </th>
                   </tr>
                 </thead>
@@ -104,16 +116,20 @@ const ShipTable = props => {
                   {props.data[0] ? (
                     props.data.map((val, ind) => {
                       if (checkAllFilterBalnk(props)) {
-                        return (
-                          <ShipTableRows
-                            key={ind}
-                            index={ind}
-                            data={props.data[ind]}
-                          />
-                        )
-                      } else if (props.orderID !== '') {
-                        if (checkOrderId(props.data[ind].orderId)) {
-                          isAnyData = true
+                        isAnyData = true
+                        totalNum += 1
+                        nowIndex += 1
+                        if (nowFilter === undefined || nowFilter !== 'none') {
+                          setNowFilter('none')
+                          setNowPage(1)
+                        }
+                        if (
+                          nowIndex - 1 >= (nowPage - 1) * 10 &&
+                          nowIndex - 1 < nowPage * 10
+                        ) {
+                          {
+                            /* console.log('ind', ind) */
+                          }
                           return (
                             <ShipTableRows
                               key={ind}
@@ -121,6 +137,31 @@ const ShipTable = props => {
                               data={props.data[ind]}
                             />
                           )
+                        }
+                      } else if (props.orderID !== '') {
+                        if (checkOrderId(props.data[ind].orderId)) {
+                          isAnyData = true
+                          totalNum += 1
+                          nowIndex += 1
+                          if (
+                            nowFilter === undefined ||
+                            nowFilter !== 'orderid'
+                          ) {
+                            setNowFilter('orderid')
+                            setNowPage(1)
+                          }
+                          if (
+                            nowIndex - 1 >= (nowPage - 1) * 10 &&
+                            nowIndex - 1 < nowPage * 10
+                          ) {
+                            return (
+                              <ShipTableRows
+                                key={nowIndex}
+                                index={nowIndex}
+                                data={props.data[ind]}
+                              />
+                            )
+                          }
                         }
                       } else if (
                         props.orderStatus !== '' &&
@@ -128,56 +169,132 @@ const ShipTable = props => {
                       ) {
                         if (props.data[ind].outStatus == props.orderStatus) {
                           isAnyData = true
-                          return (
-                            <ShipTableRows
-                              key={ind}
-                              index={ind}
-                              data={props.data[ind]}
-                            />
-                          )
+                          totalNum += 1
+                          nowIndex += 1
+                          if (
+                            nowFilter === undefined ||
+                            nowFilter !== 'orderstatus'
+                          ) {
+                            setNowFilter('orderstatus')
+                            setNowPage(1)
+                          }
+                          if (
+                            nowIndex - 1 >= (nowPage - 1) * 10 &&
+                            nowIndex - 1 < nowPage * 10
+                          ) {
+                            return (
+                              <ShipTableRows
+                                key={nowIndex}
+                                index={nowIndex}
+                                data={props.data[ind]}
+                              />
+                            )
+                          }
                         }
                       } else if (props.orderCustomer !== '') {
                         if (
-                          props.data[ind].csId.toLowerCase() ==
-                          props.orderCustomer.toLowerCase()
+                          nowFilter === undefined ||
+                          nowFilter !== 'customer'
+                        ) {
+                          setNowFilter('customer')
+                          setNowPage(1)
+                        }
+                        {
+                          /* console.log(
+                          'props.data[ind].csId',
+                          props.data[ind].csId
+                        ) */
+                        }
+
+                        {
+                          /* console.log('props.orderCustomer', props.orderCustomer) */
+                        }
+                        if (
+                          props.data[ind].csId.indexOf(props.orderCustomer) !=
+                          -1
                         ) {
                           isAnyData = true
-                          return (
-                            <ShipTableRows
-                              key={ind}
-                              index={ind}
-                              data={props.data[ind]}
-                            />
-                          )
+                          totalNum += 1
+                          nowIndex += 1
+
+                          if (
+                            nowIndex - 1 >= (nowPage - 1) * 10 &&
+                            nowIndex - 1 < nowPage * 10
+                          ) {
+                            return (
+                              <ShipTableRows
+                                key={nowIndex}
+                                index={nowIndex}
+                                data={props.data[ind]}
+                              />
+                            )
+                          }
                         }
-                      } else if (props.orderDate !== '') {
+                      } else if (
+                        props.orderDate !== '' &&
+                        props.orderDateOn === true
+                      ) {
                         if (props.data[ind].date === props.orderDate) {
                           isAnyData = true
-                          return (
-                            <ShipTableRows
-                              key={ind}
-                              index={ind}
-                              data={props.data[ind]}
-                            />
-                          )
+                          totalNum += 1
+                          nowIndex += 1
+                          if (
+                            nowFilter === undefined ||
+                            nowFilter !== 'orderDate'
+                          ) {
+                            setNowFilter('orderDate')
+                            setNowPage(1)
+                          }
+                          if (
+                            nowIndex - 1 >= (nowPage - 1) * 10 &&
+                            nowIndex - 1 < nowPage * 10
+                          ) {
+                            return (
+                              <ShipTableRows
+                                key={nowIndex}
+                                index={nowIndex}
+                                data={props.data[ind]}
+                              />
+                            )
+                          }
                         }
-                      } else if (props.orderShipMethods !== '') {
+                      } else if (
+                        props.orderShipMethods !== '' &&
+                        props.orderShipMethods !== '全部訂單'
+                      ) {
                         if (
                           props.data[ind].shippingWay === props.orderShipMethods
                         ) {
                           isAnyData = true
-                          return (
-                            <ShipTableRows
-                              key={ind}
-                              index={ind}
-                              data={props.data[ind]}
-                            />
-                          )
+                          totalNum += 1
+                          nowIndex += 1
+                          if (
+                            nowFilter === undefined ||
+                            nowFilter !== 'shipWay'
+                          ) {
+                            setNowFilter('shipWay')
+                            setNowPage(1)
+                          }
+                          if (
+                            nowIndex - 1 >= (nowPage - 1) * 10 &&
+                            nowIndex - 1 < nowPage * 10
+                          ) {
+                            return (
+                              <ShipTableRows
+                                key={nowIndex}
+                                index={nowIndex}
+                                data={props.data[ind]}
+                              />
+                            )
+                          }
                         }
                       } else if (props.orderAmount !== '') {
-                        {
-                          /* console.log('props.orderAmount', props.orderAmount)
-                        console.log(!isNaN(props.orderAmount.substring(0, 1))) */
+                        if (
+                          nowFilter === undefined ||
+                          nowFilter !== 'orderAmount'
+                        ) {
+                          setNowFilter('orderAmount')
+                          setNowPage(1)
                         }
                         if (
                           props.orderAmount.substring(0, 1) === '>' ||
@@ -204,13 +321,20 @@ const ShipTable = props => {
                                   )
                                 ) {
                                   isAnyData = true
-                                  return (
-                                    <ShipTableRows
-                                      key={ind}
-                                      index={ind}
-                                      data={props.data[ind]}
-                                    />
-                                  )
+                                  totalNum += 1
+                                  nowIndex += 1
+                                  if (
+                                    nowIndex - 1 >= (nowPage - 1) * 10 &&
+                                    nowIndex - 1 < nowPage * 10
+                                  ) {
+                                    return (
+                                      <ShipTableRows
+                                        key={nowIndex}
+                                        index={nowIndex}
+                                        data={props.data[ind]}
+                                      />
+                                    )
+                                  }
                                 }
                               } else {
                                 {
@@ -226,13 +350,20 @@ const ShipTable = props => {
                                   )
                                 ) {
                                   isAnyData = true
-                                  return (
-                                    <ShipTableRows
-                                      key={ind}
-                                      index={ind}
-                                      data={props.data[ind]}
-                                    />
-                                  )
+                                  totalNum += 1
+                                  nowIndex += 1
+                                  if (
+                                    nowIndex - 1 >= (nowPage - 1) * 10 &&
+                                    nowIndex - 1 < nowPage * 10
+                                  ) {
+                                    return (
+                                      <ShipTableRows
+                                        key={nowIndex}
+                                        index={nowIndex}
+                                        data={props.data[ind]}
+                                      />
+                                    )
+                                  }
                                 }
                               }
                             } else if (
@@ -253,13 +384,20 @@ const ShipTable = props => {
                                   )
                                 ) {
                                   isAnyData = true
-                                  return (
-                                    <ShipTableRows
-                                      key={ind}
-                                      index={ind}
-                                      data={props.data[ind]}
-                                    />
-                                  )
+                                  totalNum += 1
+                                  nowIndex += 1
+                                  if (
+                                    nowIndex - 1 >= (nowPage - 1) * 10 &&
+                                    nowIndex - 1 < nowPage * 10
+                                  ) {
+                                    return (
+                                      <ShipTableRows
+                                        key={nowIndex}
+                                        index={nowIndex}
+                                        data={props.data[ind]}
+                                      />
+                                    )
+                                  }
                                 }
                               } else {
                                 {
@@ -275,13 +413,20 @@ const ShipTable = props => {
                                   )
                                 ) {
                                   isAnyData = true
-                                  return (
-                                    <ShipTableRows
-                                      key={ind}
-                                      index={ind}
-                                      data={props.data[ind]}
-                                    />
-                                  )
+                                  totalNum += 1
+                                  nowIndex += 1
+                                  if (
+                                    nowIndex - 1 >= (nowPage - 1) * 10 &&
+                                    nowIndex - 1 < nowPage * 10
+                                  ) {
+                                    return (
+                                      <ShipTableRows
+                                        key={nowIndex}
+                                        index={nowIndex}
+                                        data={props.data[ind]}
+                                      />
+                                    )
+                                  }
                                 }
                               }
                             } else if (
@@ -298,13 +443,20 @@ const ShipTable = props => {
                                 )
                               ) {
                                 isAnyData = true
-                                return (
-                                  <ShipTableRows
-                                    key={ind}
-                                    index={ind}
-                                    data={props.data[ind]}
-                                  />
-                                )
+                                totalNum += 1
+                                nowIndex += 1
+                                if (
+                                  nowIndex - 1 >= (nowPage - 1) * 10 &&
+                                  nowIndex - 1 < nowPage * 10
+                                ) {
+                                  return (
+                                    <ShipTableRows
+                                      key={nowIndex}
+                                      index={nowIndex}
+                                      data={props.data[ind]}
+                                    />
+                                  )
+                                }
                               }
                             }
                           }
@@ -323,13 +475,20 @@ const ShipTable = props => {
                             )
                           ) {
                             isAnyData = true
-                            return (
-                              <ShipTableRows
-                                key={ind}
-                                index={ind}
-                                data={props.data[ind]}
-                              />
-                            )
+                            totalNum += 1
+                            nowIndex += 1
+                            if (
+                              nowIndex - 1 >= (nowPage - 1) * 10 &&
+                              nowIndex - 1 < nowPage * 10
+                            ) {
+                              return (
+                                <ShipTableRows
+                                  key={nowIndex}
+                                  index={nowIndex}
+                                  data={props.data[ind]}
+                                />
+                              )
+                            }
                           }
                         }
                       }
@@ -359,37 +518,68 @@ const ShipTable = props => {
                     <td colSpan="12" className="footable-visible">
                       <ul className="pagination float-right">
                         <li className="footable-page-arrow disabled">
-                          <a data-page="first" href="#first">
+                          <a data-page={1} onClick={e => handleChangePage(e)}>
                             «
                           </a>
                         </li>
                         <li className="footable-page-arrow disabled">
-                          <a data-page="prev" href="#prev">
+                          <a
+                            data-page={nowPage > 1 ? nowPage - 1 : 1}
+                            onClick={e => handleChangePage(e)}
+                          >
                             ‹
                           </a>
                         </li>
+                        {nowPage > 1 && (
+                          <li className="footable-page">
+                            <a
+                              data-page={nowPage - 1}
+                              onClick={e => handleChangePage(e)}
+                            >
+                              {nowPage - 1}
+                            </a>
+                          </li>
+                        )}
+
                         <li className="footable-page active">
-                          <a data-page="0" href="#">
-                            1
+                          <a
+                            data-page={nowPage}
+                            onClick={e => handleChangePage(e)}
+                          >
+                            {nowPage}
                           </a>
                         </li>
-                        <li className="footable-page">
-                          <a data-page="1" href="#">
-                            2
-                          </a>
-                        </li>
-                        <li className="footable-page">
-                          <a data-page="2" href="#">
-                            3
-                          </a>
-                        </li>
+
+                        {nowPage < Math.ceil(totalNum / 10) && (
+                          <li className="footable-page">
+                            <a
+                              data-page={nowPage + 1}
+                              onClick={e => handleChangePage(e)}
+                            >
+                              {nowPage + 1}
+                            </a>
+                          </li>
+                        )}
+
                         <li className="footable-page-arrow">
-                          <a data-page="next" href="#next">
+                          <a
+                            data-page={
+                              nowPage < parseInt(Math.ceil(totalNum / 10))
+                                ? nowPage + 1
+                                : parseInt(Math.ceil(totalNum / 10))
+                            }
+                            onClick={e => handleChangePage(e)}
+                          >
                             ›
                           </a>
                         </li>
                         <li className="footable-page-arrow">
-                          <a data-page="last" href="#last">
+                          <a
+                            data-page={parseInt(
+                              Math.ceil(totalNum / 10)
+                            ).toString()}
+                            onClick={e => handleChangePage(e)}
+                          >
                             »
                           </a>
                         </li>
