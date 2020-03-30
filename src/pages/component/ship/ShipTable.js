@@ -69,7 +69,7 @@ const ShipTable = props => {
                 className="footable table table-stripped toggle-arrow-tiny default footable-loaded"
                 data-page-size="15"
               >
-                <thead>
+                <thead style={{ fontSize: '18px' }}>
                   <tr>
                     <th className="footable-visible footable-first-column footable-sortable text-center">
                       Order ID
@@ -112,7 +112,7 @@ const ShipTable = props => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ fontSize: '17px' }}>
                   {props.data[0] ? (
                     props.data.map((val, ind) => {
                       if (checkAllFilterBalnk(props)) {

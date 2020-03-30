@@ -53,7 +53,7 @@ const Message = props => {
         <Banner pageName={pageName} />
         <div className="wrapper wrapper-content" style={{ fontSize: '14px' }}>
           <div className="row animated fadeInRight">
-            <div className="col-md-4">
+            <div className="col-md-4" style={{ paddingRight: '5px' }}>
               <div className="ibox ">
                 <div className="ibox-title">
                   {/* <!-- 左側的商品列表，預計未來改從資料庫讀取 --> */}

@@ -42,15 +42,26 @@ const ShipFilter = props => {
 
   return (
     <>
-      <div className="wrapper wrapper-content animated fadeInRight ecommerce">
-        <div className="ibox-content m-b-sm border-bottom">
+      <div
+        className="wrapper wrapper-content animated fadeInRight ecommerce"
+        style={{ padding: '20px 10px 20px' }}
+      >
+        <div
+          className="ibox-content m-b-sm border-bottom"
+          style={{ marginBottom: '0px' }}
+        >
           <div className="row">
             <div className="col-sm-4">
               <div className="form-group">
-                <label className="col-form-label" htmlFor="order_id">
+                <label
+                  className="col-form-label"
+                  htmlFor="order_id"
+                  style={{ fontSize: '20px' }}
+                >
                   Order ID
                 </label>
                 <input
+                  style={{ fontSize: '16px' }}
                   type="text"
                   id="order_id"
                   name="order_id"
@@ -62,13 +73,17 @@ const ShipFilter = props => {
             </div>
             <div className="col-sm-4">
               <div className="form-group">
-                <label className="col-form-label" htmlFor="status">
+                <label
+                  className="col-form-label"
+                  htmlFor="status"
+                  style={{ fontSize: '20px' }}
+                >
                   Order status
                 </label>
                 <div>
                   <Select
                     defaultValue="全部狀態"
-                    style={{ width: '100%' }}
+                    style={{ width: '100%', fontSize: '16px' }}
                     onChange={value => props.sendOrderStatus(value)}
                   >
                     <Option value="全部狀態">全部狀態</Option>
@@ -82,10 +97,15 @@ const ShipFilter = props => {
             </div>
             <div className="col-sm-4">
               <div className="form-group">
-                <label className="col-form-label" htmlFor="customer">
+                <label
+                  className="col-form-label"
+                  htmlFor="customer"
+                  style={{ fontSize: '20px' }}
+                >
                   Customer
                 </label>
                 <input
+                  style={{ fontSize: '16px' }}
                   type="text"
                   id="customer"
                   name="customer"
@@ -99,7 +119,11 @@ const ShipFilter = props => {
           <div className="row">
             <div className="col-sm-4">
               <div className="form-group">
-                <label className="col-form-label" htmlFor="date_added">
+                <label
+                  className="col-form-label"
+                  htmlFor="date_added"
+                  style={{ fontSize: '20px' }}
+                >
                   Date Filter :
                 </label>
                 {dateFilterBtn && (
@@ -139,18 +163,23 @@ const ShipFilter = props => {
                     type="text"
                     className="form-control"
                     defaultValue="2020/04/01"
+                    style={{ fontSize: '16px' }}
                   />
                 </div>
               </div>
             </div>
             <div className="col-sm-4">
               <div className="form-group">
-                <label className="col-form-label" htmlFor="shipping_methods">
+                <label
+                  className="col-form-label"
+                  htmlFor="shipping_methods"
+                  style={{ fontSize: '20px' }}
+                >
                   Shipping methods
                 </label>
                 <Select
                   defaultValue="全部訂單"
-                  style={{ width: '100%' }}
+                  style={{ width: '100%', fontSize: '16px' }}
                   onChange={value => props.sendOrderShipMethods(value)}
                 >
                   <Option value="全部訂單">全部訂單</Option>
@@ -161,10 +190,15 @@ const ShipFilter = props => {
             </div>
             <div className="col-sm-4">
               <div className="form-group">
-                <label className="col-form-label" htmlFor="amount">
+                <label
+                  className="col-form-label"
+                  htmlFor="amount"
+                  style={{ fontSize: '20px' }}
+                >
                   Amount
                 </label>
                 <input
+                  style={{ fontSize: '16px' }}
                   type="text"
                   id="amount"
                   name="amount"
