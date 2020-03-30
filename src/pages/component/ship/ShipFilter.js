@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  useHistory,
-} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 // ANTD
 import { Select, Button } from 'antd'
@@ -16,37 +10,25 @@ import $ from 'jquery'
 import 'jquery-ui/ui/widgets/datepicker'
 import 'jquery-ui/themes/base/datepicker.css'
 
-import Calendar from 'react-calendar'
-import moment from 'moment'
-
 // CSS
 import './ShipFilter.scss'
-import './reactCal.css'
-import 'react-calendar/dist/Calendar.css'
+
+const { Option } = Select
 
 const ShipFilter = props => {
-  const { Option } = Select
-  const history = useHistory()
-
   const [dateFilterBtn, setDateFilterBtn] = useState(false)
-  const [showCal, setShowCal] = useState(false)
-  const [inputDate, setInputDate] = useState(new Date())
   useEffect(() => {
     $(document).ready(function() {
-      $('#date_added').focus(function() {
-        setShowCal(true)
+      $('#date_added').datepicker({
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true,
+        dateFormat: 'yy-mm-dd',
+        onSelect: (dateText, inst) => {
+          props.sendOrderDate(dateText)
+        },
       })
-
-      // $('#date_added').datepicker({
-      //   keyboardNavigation: false,
-      //   forceParse: false,
-      //   calendarWeeks: true,
-      //   autoclose: true,
-      //   dateFormat: 'yy-mm-dd',
-      //   onSelect: (dateText, inst) => {
-      //     props.sendOrderDate(dateText)
-      //   },
-      // })
     })
   }, [])
 
@@ -56,30 +38,6 @@ const ShipFilter = props => {
 
   function handleDateFilter() {
     setDateFilterBtn(!dateFilterBtn)
-  }
-
-  const onChange = date => {
-    console.log('onChange', date)
-    setInputDate(date)
-    let timeValue = date && moment(date).format('YYYY-MM-DD')
-    // console.log(timeValue)
-    $('#date_added').val(timeValue)
-    props.sendOrderDate(timeValue)
-    setShowCal(false)
-    // history.push('/Message')
-  }
-
-  const tileClassName = ({ date, view }) => {
-    // console.log('date', date)
-    // console.log('view', view)
-    // let getDate = moment(date).format('YYYY-MM-DD')
-    // console.log(getDate === '2019-01-07')
-    // if (getDate === moment(new Date()).format('YYYY-MM-DD')) {
-    //   return '1'
-    // } else if (getDate === '2019-01-19') {
-    //   return 'oneimage'
-    // }
-    // return null
   }
 
   return (
@@ -133,7 +91,6 @@ const ShipFilter = props => {
                   name="customer"
                   placeholder="Customer"
                   className="form-control"
-                  onChange={e => props.sendOrderCustomer(e.target.value)}
                 />
               </div>
             </div>
@@ -180,18 +137,9 @@ const ShipFilter = props => {
                     id="date_added"
                     type="text"
                     className="form-control"
-                    value={moment(inputDate).format('YYYY-MM-DD')}
+                    defaultValue="2020/04/01"
                   />
                 </div>
-                {showCal && (
-                  <Calendar
-                    onChange={onChange}
-                    tileClassName={tileClassName}
-                    minDetail="month"
-                    locale="en"
-                    showNeighboringMonth={false}
-                  />
-                )}
               </div>
             </div>
             <div className="col-sm-4">

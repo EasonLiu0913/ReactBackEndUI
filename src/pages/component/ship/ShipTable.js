@@ -137,14 +137,6 @@ const ShipTable = props => {
                           )
                         }
                       } else if (props.orderCustomer !== '') {
-                        console.log(
-                          'props.data[ind].csId.toLowerCase()',
-                          props.data[ind].csId.toLowerCase()
-                        )
-                        console.log(
-                          'props.orderCustomer.toLowerCase()',
-                          props.orderCustomer.toLowerCase()
-                        )
                         if (
                           props.data[ind].csId.toLowerCase() ==
                           props.orderCustomer.toLowerCase()
@@ -318,11 +310,11 @@ const ShipTable = props => {
                           }
                         } else if (!isNaN(props.orderAmount.substring(0, 1))) {
                           {
-                            /* console.log('開頭為數字，預設為大於等於') */
+                            /* console.log('開頭為數字，預設為大於') */
                           }
 
                           if (
-                            parseInt(props.data[ind].total) >=
+                            parseInt(props.data[ind].total) >
                             parseInt(
                               props.orderAmount.substring(
                                 0,
