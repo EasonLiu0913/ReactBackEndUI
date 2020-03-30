@@ -25,7 +25,7 @@ const Banner = props => {
       </div>
       <div style={{ margin: '15px 0px 0px 20px' }}>
         {' '}
-        <span style={{fontSize: '20px'}}> Home / {props.pageName} </span>
+        <span style={{fontSize: '22px'}}> Home / {props.pageName} </span>
       </div>
     </div>
   )
