@@ -15,6 +15,8 @@
   z-index: 1;
   background-color: #00000052;
   .stateBox {
+    animation-name: fadeIn;
+
     padding: 20px 30px;
     width: 400px;
     height: 250px;
@@ -167,11 +169,18 @@
 .sty-ad-table {
   thead {
     background-color: rgb(236, 236, 236);
+    font-size: 16px;
+  }
+  tbody {
+    font-size: 15px;
   }
 }
 
 .styRed {
   color: red;
+}
+.styGrey {
+  color: $grey;
 }
 
 .planGroup {

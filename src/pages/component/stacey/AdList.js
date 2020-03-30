@@ -171,7 +171,7 @@ const AdList = () => {
         
           <div className="wrapper-content">
               <div className="ibox">
-                  <div className="ibox-title">
+                  <div className="ibox-title sty-box-title">
                       <p>廣告總覽</p>
                   </div>
                   <div className="ibox-content sty-box-content">

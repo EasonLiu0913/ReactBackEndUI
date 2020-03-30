@@ -33,7 +33,7 @@
 }
 
 .sty-addForm {
-  font-size: 16px;
+  font-size: 18px;
   input {
     &:focus {
       outline: none;
@@ -44,9 +44,10 @@
     padding: 15px 30px;
     h3 {
       margin: 0;
-      font-size: 20px;
+      font-size: 22px;
     }
   }
+
   .sty-inputGroup {
     background-color: $white;
     padding: 25px 50px;
@@ -92,7 +93,7 @@
     }
   }
   .sty-small {
-    font-size: $font-xs;
+    font-size: 16px;
     margin: 0 0 0 100px;
   }
   .upload {
@@ -112,8 +113,23 @@
 .sty-addButton {
   cursor: pointer;
   padding: 10px 50px;
-  background-color: $blue;
+  background-color: $orange;
   border: none;
   color: $white;
   font-weight: $font-bold;
+  font-size: 20px;
+  &:hover {
+    animation-name: push;
+    animation-duration: 0.5s;
+  }
+}
+
+@keyframes push {
+  50% {
+    transform: scale(0.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }

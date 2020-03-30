@@ -14,7 +14,6 @@ import classnames from 'classnames'
 import { withSwalInstance } from 'sweetalert2-react';
 import swal from 'sweetalert2';
 
-//scss
 
 //component
 import CouponListItem from './CouponListItem'
@@ -44,7 +43,7 @@ const AdListItem = (props) => {
 
   const [open , setOpen] = useState(false)
 
-  const redStyle = classnames({styRed: props.item.planStatus === '上架'})
+  const redStyle = classnames({styRed: props.item.planStatus === '上架',styGrey:props.item.planStatus === '下架'})
   const adPlanGroupStyle = classnames('planGroup',{active: open})
 
   const clickItem = ()=>{
@@ -60,14 +59,7 @@ const AdListItem = (props) => {
   }
 
   
-  // switch(props.item.planGroup){
-  //   case 0:
-  //     planGroup = '所有人'
-  //    break
-  //   case 1:
-  //     planGroup = '再行銷族群'
-  //    break
-  // }
+
 
   let groupBuyItems = ''
   switch(props.item.groupBuyItems){

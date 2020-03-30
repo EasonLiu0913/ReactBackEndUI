@@ -1,3 +1,9 @@
+@import '../css/variables.scss';
+
+.nav-item {
+  font-size: 18px;
+}
+
 .sty-nav {
   padding-left: 25px;
   //   margin-top: 10px;
@@ -7,10 +13,10 @@
     color: #a7b1c2;
     background: '#293846';
     &:hover {
-        color: white;
+      color: white;
     }
   }
-  li.active{
-      color: white;
+  li.active {
+    color: white;
   }
 }

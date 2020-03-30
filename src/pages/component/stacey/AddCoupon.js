@@ -25,7 +25,7 @@ import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
 
-const AddCoupon = () => {
+const AddCoupon = (props) => {
 
     const [show,setShow] = useState(false)
 
@@ -90,7 +90,10 @@ const AddCoupon = () => {
             show={show}
             title="新增成功"
             text="優惠券新增成功"
-            onConfirm={() => setShow(false)}
+            onConfirm={() => {
+                setShow(false)
+                props.history.push('/Promote/couponList')
+            }}
         />
 
         <div className="wrapper-content">
@@ -112,7 +115,7 @@ const AddCoupon = () => {
                         <h3>請選擇優惠商品種類</h3>
                         </div>
                         <div className="sty-inputGroup">
-                        <input
+                        {/* <input
                             type="text"
                             name="v_id"
                             value="13"
@@ -123,7 +126,7 @@ const AddCoupon = () => {
                             name="v_name"
                             value="apple"
                             style={{display:'none'}}
-                            />
+                            /> */}
                         <div>
                             <input type="radio" id="object_0" name="object" value="0" />
                             <label htmlFor="object_0"><div className="sty-radio"></div>全部商品</label>
@@ -270,7 +273,7 @@ const AddCoupon = () => {
                         <p className="sty-small">(請填寫至少20以上的數量。)</p>
                         </div>
                         {/* <!-- 6.上傳檔案 --> */}
-                        <div className="title">
+                        {/* <div className="title">
                         <h3>請選擇上傳的圖片</h3>
                         </div>
                         <div className="sty-inputGroup">
@@ -283,7 +286,7 @@ const AddCoupon = () => {
                             style={{visibility: 'hidden'}}
                             />
                         </div>
-                        </div>
+                        </div> */}
                     </form>
                     <div class="d-flex  justify-content-end mt-4">
                         <button class="sty-addButton">新增優惠券</button>
