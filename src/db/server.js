@@ -62,12 +62,6 @@ app.post('/iii', (req, res) => {
   res.send('hello')
 })
 
-app.post('/upLoadImg', (req, res) => {
-  console.log('req', req)
-
-  res.send('done')
-})
-
 //404
 app.use((req, res) => {
   res.send('404 not found')
