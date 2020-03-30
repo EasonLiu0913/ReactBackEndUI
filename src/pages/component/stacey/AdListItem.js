@@ -74,10 +74,10 @@ const AdListItem = (props) => {
   let groupHistoryItems = ''
   switch(props.item.groupHistoryItems){
     case 0:
-      groupBuyItems = ''
+      groupHistoryItems = ''
      break
     case 1:
-      groupBuyItems = <li>瀏覽過我的產品</li>
+      groupHistoryItems = <li>瀏覽過我的產品</li>
      break
   }
 
