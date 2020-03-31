@@ -42,7 +42,7 @@ const AdList = () => {
 
   const [showAlert,setShowAlert] = useState(false)
   const [stateAlert,setStateAlert] = useState(false)
-  const [loading,setLoading] = useState(false)
+  // const [loading,setLoading] = useState(false)
   
 
   const stateAlertStyle = classnames('sty-alertBox',{active:stateAlert})
@@ -103,13 +103,13 @@ const AdList = () => {
     },[])
 
     
-    useEffect(()=>{
-      if(loading){
-        setTimeout(()=>{
-          setLoading(false)
-        },500)
-      }
-    },[loading])
+    // useEffect(()=>{
+    //   if(loading){
+    //     setTimeout(()=>{
+    //       setLoading(false)
+    //     },500)
+    //   }
+    // },[loading])
 
     
 
@@ -166,7 +166,7 @@ const AdList = () => {
     return (
         <>
         {stateAlert && alertBox}
-        {showAlert &&  loading ? loadingBox : showBox}
+        {showAlert &&  showBox}
         
         
           <div className="wrapper-content">
@@ -179,11 +179,11 @@ const AdList = () => {
                         <thead>
                           <tr>
                             <th>設定狀態</th>
+                            <th>狀態</th>
                             <th>投放對象</th>
                             <th>廣告名稱</th>
                             <th>投放位置</th>
                             <th>點擊數</th>
-                            <th>狀態</th>
                             <th>開始時間</th>
                             <th>結束時間</th>
                             <th>預覽</th>
@@ -191,7 +191,7 @@ const AdList = () => {
                         </thead>
                         <tbody>
                           {data.length > 0 ? data.map((val,ind)=>{
-                            return <AdListItem key={ind} item={val} alertFunc={()=>{setStateAlert(!stateAlert)}} showFunc={()=>{setShowAlert(!showAlert)}} loadingFunc={()=>{setLoading(!loading)}}/>
+                            return <AdListItem key={ind} item={val} alertFunc={()=>{setStateAlert(!stateAlert)}} showFunc={()=>{setShowAlert(!showAlert)}}/>
                           }) : ''}
                         </tbody>
                       </table>

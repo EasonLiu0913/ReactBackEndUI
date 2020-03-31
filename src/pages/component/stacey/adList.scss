@@ -173,6 +173,16 @@
   }
   tbody {
     font-size: 17px;
+    tr {
+      &:hover {
+        background-color: rgb(236, 236, 236);
+      }
+    }
+  }
+  .adInfo {
+    width: 30px;
+    height: 30px;
+    background-color: #b8b8b8;
   }
 }
 
