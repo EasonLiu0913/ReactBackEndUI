@@ -53,24 +53,20 @@ function LeftNav() {
                   className="rounded-circle"
                   src="img/profile_small.jpg"
                 />
-                <a
-                  data-toggle="dropdown"
-                  className="dropdown-toggle"
-                  href="index.html"
+
+                <span
+                  className="block m-t-xs font-bold"
+                  style={{ fontSize: '20px', color: '#fff' }}
                 >
-                  <span
-                    className="block m-t-xs font-bold"
-                    style={{ fontSize: '20px' }}
-                  >
-                    David Wang
-                  </span>
-                  <span
-                    className="text-muted text-xs block"
-                    style={{ fontSize: '16px' }}
-                  >
-                    GARMIN 銷售總監 <b className="caret"></b>
-                  </span>
-                </a>
+                  David Wang
+                </span>
+                <span
+                  className="text-muted text-xs block"
+                  style={{ fontSize: '16px' }}
+                >
+                  GARMIN 銷售總監
+                </span>
+
                 <ul className="dropdown-menu animated fadeInRight m-t-xs">
                   <li>
                     <a className="dropdown-item" href="profile.html">
