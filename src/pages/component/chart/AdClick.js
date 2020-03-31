@@ -9,7 +9,7 @@ import {
 
 import { Line } from 'react-chartjs-2'
 
-const LineChart = props => {
+const AdClick = props => {
   // console.log(props)
 
   const data = {
@@ -33,7 +33,7 @@ const LineChart = props => {
     ],
     datasets: [
       {
-        label: '訂單實付總金額',
+        label: '不重複使用者點擊次數',
         fill: false,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
@@ -51,14 +51,14 @@ const LineChart = props => {
         pointHoverBorderWidth: 2,
         pointRadius: 5,
         pointHitRadius: 10,
-        data: [65, 59, 80, 81, 56, 55, 40, 53, 60, 42, 35, 43, 55, 62, 72, 88],
+        data: [3, 4, 6, 9, 11, 14, 12, 10, 14, 16, 17, 16, 20, 22, 20, 21],
       },
     ],
   }
 
   useEffect(() => {
     const height = document.querySelector('.line-chart').offsetHeight
-    props.returnHeight(height)
+    // props.returnHeight(height)
   }, [])
 
   return (
@@ -75,34 +75,11 @@ const LineChart = props => {
         <div style={{ marginTop: '20px', fontSize: '16px' }}>
           <span>{props.data[2]}</span>
         </div>
-        <div>
-          <span style={{ fontSize: '46px' }}>
-            <strong>{props.data[3]}</strong>
-          </span>
-          <span>{props.data[4]}</span>
-        </div>
-        <div style={{ marginTop: '5px', fontSize: '16px' }}>
-          <span>環比</span>
-          <span
-            style={{
-              color: props.data[5].substring(0, 1) === '+' ? 'red' : 'green',
-            }}
-          >
-            {props.data[5]}
-          </span>
-          <span style={{ marginLeft: '15px' }}>同比</span>
-          <span
-            style={{
-              color: props.data[6].substring(0, 1) === '+' ? 'red' : 'green',
-            }}
-          >
-            {props.data[6]}
-          </span>
-        </div>
+
         <Line data={data} />
       </div>
     </div>
   )
 }
 
-export default LineChart
+export default AdClick
