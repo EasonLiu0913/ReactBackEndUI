@@ -17,11 +17,16 @@ import {
   getReplyCommentData,
 } from './component/message/actions'
 
+import $ from 'jquery'
+
 //header
 import Header from './component/common/Header'
 import Banner from './component/common/Banner'
 import ProductList from './component/message/ProductList'
 import MessageArea from './component/message/MessageArea'
+
+// icon
+import { FiChevronsUp } from 'react-icons/fi'
 
 const pageName = '訊息'
 
@@ -31,6 +36,7 @@ const bgStyle = {
 }
 
 const Message = props => {
+  let isNoComment = true
   const [productID, setProductID] = useState('2')
 
   useEffect(() => {
@@ -38,14 +44,29 @@ const Message = props => {
     props.getCommentProductlistData()
     props.getUserCommentData()
     props.getReplyCommentData()
+
+    $(document).ready(function() {
+      $('.button').css({
+        position: 'fixed',
+        bottom: 30 + 'px',
+        right: 20 + 'px',
+        transition: '0s',
+        width: '40px',
+        height: '40px',
+        padding: '0px',
+        borderRadius: '40px',
+      })
+    })
   }, [])
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     // console.log('Message', props)
   }, [productID])
 
-  console.log('replyCommentData', props.replyCommentData)
-
+  function gotoTop() {
+    window.scrollTo(0, 0)
+  }
   return (
     <>
       <div id="page-wrapper" className="gray-bg" style={bgStyle}>
@@ -94,12 +115,17 @@ const Message = props => {
                   <div>
                     <div className="feed-activity-list">
                       {/* <!-- 評論模版預計放這裡 --></div> */}
+                      {console.log(
+                        'props.userCommentData',
+                        props.userCommentData
+                      )}
                       {props.userCommentData &&
                         props.userCommentData.length !== 0 &&
                         props.userCommentData.map((val, ind) => {
                           if (
                             props.userCommentData[ind].productId === productID
                           ) {
+                            isNoComment = false
                             return (
                               <MessageArea
                                 key={ind}
@@ -116,6 +142,12 @@ const Message = props => {
                               />
                             )
                           }
+                          if (
+                            ind === props.userCommentData.length - 1 &&
+                            isNoComment
+                          ) {
+                            return <h2>這商品現在似乎還沒任何評論</h2>
+                          }
                         })}
                     </div>
                   </div>
@@ -125,6 +157,9 @@ const Message = props => {
           </div>
         </div>
       </div>
+      <button className="button" onClick={gotoTop}>
+        <FiChevronsUp />
+      </button>
     </>
   )
 }

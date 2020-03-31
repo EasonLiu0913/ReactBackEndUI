@@ -125,7 +125,7 @@ const MessageArea = props => {
             className="media-body "
             style={{ fontSize: '16px', overflow: 'visible', overflow: 'auto' }}
           >
-            <small className="float-right">{props.arrayData.updated_at}</small>
+            <small className="float-right">{props.arrayData.created_at}</small>
             <strong>{props.arrayData.userName}</strong> 評價了您的商品： <br />
             {/* <div className="d-flex">${rankStar}</div> */}
             {props.arrayData.img && (
