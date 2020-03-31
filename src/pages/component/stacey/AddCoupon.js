@@ -93,6 +93,7 @@ const AddCoupon = (props) => {
             onConfirm={() => {
                 setShow(false)
                 props.history.push('/Promote/couponList')
+                window.scrollTo({ top: 0 })
             }}
         />
 

@@ -170,16 +170,15 @@ const AdListItem = (props) => {
               <td><button class="btn btn-sm btn-info setState" 
               onClick={()=>{clickItem()
                             props.alertFunc()}}>設定</button></td>
+              <td className={redStyle}>{props.item.planStatus}</td>
               {props.item.planGroup ? planGroup : <td>所有人</td>}
               <td>{props.item.planName}</td>
               <td>{props.item.planPlace}</td>
               <td>{props.item.planClick}</td>
-              <td className={redStyle}>{props.item.planStatus}</td>
               <td>{props.item.planStartTime}</td>
               <td>{props.item.planDueTime}</td>
               {/* <td><button class="fa fa-angle-double-down btn btn-circle adInfo" onClick={()=>setOpen(!open)} ></button></td> */}
-              <td><button class="fa fa-angle-double-down btn btn-circle adInfo"  onClick={()=>{clickItem()
-                props.loadingFunc()
+              <td><button class="fa fa-search btn btn-circle adInfo"  onClick={()=>{clickItem()
                 props.showFunc()
               }} ></button></td>
             </tr>
