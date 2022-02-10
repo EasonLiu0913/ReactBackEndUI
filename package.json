@@ -18,7 +18,7 @@
     "jquery-ui": "^1.12.1",
     "moment-timezone": "^0.5.28",
     "mysql": "^2.18.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.0",
     "react-app-rewire-hot-loader": "^2.0.1",
     "react-app-rewired": "^2.1.5",
